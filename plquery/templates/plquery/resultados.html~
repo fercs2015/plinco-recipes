@@ -1,0 +1,29 @@
+{% extends 'plquery/principal.html' %}
+
+{% block resultados %}
+<div id="resultados" class="col-xs-6 col-sm-7 col-md-7 col-lg-8">
+	<h3>Resultados</h3>
+	<h4>Recetas que puedes hacer...</h4>
+	<div class="list-group">
+		{% for receta in recetas_list %}
+		<a href="{% url 'recetario:detallereceta' receta.pk %}" class="list-group-item">{{ receta.nombre }}</a>
+		{% endfor %}
+	</div>
+	
+	<h4>Recetas que podrías hacer...</h4>
+	<div class="list-group">
+
+	</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+	$('.js-example-events').on('select2:change', cambio);
+	
+	function cambio() {
+		var id = $(this).val();
+		console.log(id);
+	}
+</script>
+{% endblock %}

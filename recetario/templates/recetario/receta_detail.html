@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Receta</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="expires" content="0">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<h1>{{ receta.nombre }} <small>{{ receta.categoria.nombre }}</small></h1>
+	<img class="img-rounded img-responsive" src="{% static 'recetario/images/bunuelo.jpg' %}" alt="{% static "recetario/images/none.jpg" %}" 
+	width="460" height="345">
+	<h3>Ingredientes <small>cantidades</small></h3>
+		<ul>
+		{% for detalle in receta.detallereceta_set.all %}
+			<li>{{ detalle.ingrediente }}: <small>{{ detalle.cantidad }}</small></li>
+		{% endfor %}
+		</ul>
+	<h3>Preparación</h3>
+	<p>{{ receta.preparacion }}</p>
+</body>
+</html>

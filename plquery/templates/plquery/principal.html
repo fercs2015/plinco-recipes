@@ -1,0 +1,86 @@
+{% extends 'plquery/base.html' %}
+
+{% block content %}
+        <div id="principal" class="container">
+            <div class="row">
+            	<div class="col-xs-6 col-sm-5 col-md-5 col-lg-4">
+            		<h3>Mirando en la heladera</h3><br>
+            		<form role="form" method="get" action="{% url 'plquery:resultados' %}">
+						<div class="form-group">
+                        <label for="inputIngr">¿Qué Ingredientes tienes...?</label>
+                        <select  name="ingredientes_ids" style="width: 100%" multiple="multiple" class="form-control js-example-basic-multiple js-example-tokenizer" id="inputIngr">
+                        	{% for ingrediente in ingredientes_list %}
+  									<option value="{{ ingrediente.pk }}">{{ ingrediente }}</option>
+  									{% endfor %}
+								</select>
+								<script type="text/javascript">
+									$(document).ready(function() {
+									$("#inputIngr").select2({
+										placeholder: 'Elegir ingredientes',
+										allowClear: true,
+										language: "es",
+										minimumResultsForSearch: 8
+										});
+									});
+								</script>
+                  </div><br>
+                     <div class="form-group">
+                        <label for="inputCat">¿Qué deseas preparar...?</label>
+								{% for categoria in categorias_list %}                        
+                        <div class="radio">
+								  <label>
+								    <input type="radio" name="categoria_ids" id="inputCat" value="{{ categoria.pk }}">
+								    {{ categoria }}
+								  </label>
+								</div>
+								{% endfor %}
+                     </div><br>
+                     
+                     <div class="form-group">
+                         <label for="inputCel">¿Eres celíaco...?</label>
+                         <div class="btn-group" data-toggle="buttons" id="inputCel">
+                         	<label class="btn btn-info active">
+                         		<input type="radio" name="optCel" value="optNo" autocomplete="off" checked>No
+                         	</label>
+								   <label class="btn btn-danger">
+								   	<input type="radio" name="optCel" value="optSi" autocomplete="off">Sí
+								   </label>
+								 </div>
+                     </div><br>
+            		   <input type="submit" value="Enviar Datos">
+            		</form>
+            	</div>
+            	<div id="test" class="col-xs-6 col-sm-7 col-md-7 col-lg-8">
+					</div>
+
+            </div>
+        </div><br>
+           
+			{% block js %}
+			<script type="text/javascript">
+				$(document).ready(function () {
+					$('select').on('change', cambio);
+					
+					function cambio() {
+						var ingredientes = $(this).val();
+						
+						console.log(ingredientes);
+						$.ajax({
+							data: {'ingredientes_ids': ingredientes },
+							url: "{% url 'plquery:busqueda_ajax' %}",
+							type: 'get',
+							success: function(data){
+								var html = "<div class='list-group'>"
+								for(var i=0; i<=data.length; i++) {
+									html+="<a href='#' class='list-group-item'>"+ data[i].fields.nombre +"</a>"
+								}
+								html+="<p>hol</p></div>"
+								$('#test').html("<h1>HOOOL</h1>");
+							}
+						});
+					}
+				})
+			</script>
+			{% endblock %}
+			
+{% endblock %}
