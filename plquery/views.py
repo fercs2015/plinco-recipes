@@ -34,14 +34,14 @@ class ResultadosView(generic.View):
             return HttpResponse("No hay nada")
 
 from django.core import serializers
-from django.http import HttpResponse
-class BusquedaAjaxView(generic.TemplateView):
+from django.http import HttpResponse, JsonResponse
+class BusquedaAjaxView(generic.View):
 
     def get(self, request, *args, **kwargs):
-        ingredientes_ids = request.GET['ingredientes_ids']
-        print ingredientes_ids 
+        ingredientes_ids = request.GET.getlist('ingredientes_ids')
         inner_qs = Ingrediente.objects.exclude(pk__in=ingredientes_ids)
-        recetas_list = Receta.objects.exclude(ingredientes__in=inner_qs).filter(categoria__id=categoria_ids)
-        data = serializers.serialize('json', recetas_list, fields=('nombre'))
-        return HttpResponse(data, mimetype='application/json')
+        recetas_list = Receta.objects.exclude(ingredientes__in=inner_qs)
+        data = serializers.serialize('json', recetas_list, fields=('pk','nombre'))
+        print data 
+        return HttpResponse(data, content_type='application/json')
 

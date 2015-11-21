@@ -51,11 +51,13 @@
             		</form>
             	</div>
             	<div id="test" class="col-xs-6 col-sm-7 col-md-7 col-lg-8">
+            	
 					</div>
 
             </div>
         </div><br>
-           
+{% endblock %}      
+
 			{% block js %}
 			<script type="text/javascript">
 				$(document).ready(function () {
@@ -66,21 +68,26 @@
 						
 						console.log(ingredientes);
 						$.ajax({
+							traditional: true,
 							data: {'ingredientes_ids': ingredientes },
 							url: "{% url 'plquery:busqueda_ajax' %}",
 							type: 'get',
-							success: function(data){
+							complete: function(data) {
+								console.log(data);
 								var html = "<div class='list-group'>"
-								for(var i=0; i<=data.length; i++) {
-									html+="<a href='#' class='list-group-item'>"+ data[i].fields.nombre +"</a>"
+								for(var i=0; i<data.responseJSON.length; i++) {
+									html += "<a href='#' class='list-group-item'></a>"
 								}
-								html+="<p>hol</p></div>"
-								$('#test').html("<h1>HOOOL</h1>");
+								console.log(html);
+								html += "</div>"
+								$('#test').html(data);
+							},
+							error: function () {
+								console.log('ALGO ANDA MAL');
+								
 							}
 						});
 					}
-				})
+				});
 			</script>
 			{% endblock %}
-			
-{% endblock %}
