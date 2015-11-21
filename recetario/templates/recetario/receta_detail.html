@@ -14,8 +14,8 @@
 </head>
 <body>
 	<h1>{{ receta.nombre }} <small>{{ receta.categoria.nombre }}</small></h1>
-	<img class="img-rounded img-responsive" src="{% static 'recetario/images/bunuelo.jpg' %}" alt="{% static "recetario/images/none.jpg" %}" 
-	width="460" height="345">
+	<img class="img-rounded img-responsive" src="{% static 'recetario/images/none.jpg' %}" 
+	width="230" height="172">
 	<h3>Ingredientes <small>cantidades</small></h3>
 		<ul>
 		{% for detalle in receta.detallereceta_set.all %}

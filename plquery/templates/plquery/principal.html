@@ -50,7 +50,7 @@
             		   <input type="submit" value="Enviar Datos">
             		</form>
             	</div>
-            	<div id="test" class="col-xs-6 col-sm-7 col-md-7 col-lg-8">
+            	<div id="resultados" class="col-xs-6 col-sm-7 col-md-7 col-lg-8">
             	
 					</div>
 
@@ -72,15 +72,19 @@
 							data: {'ingredientes_ids': ingredientes },
 							url: "{% url 'plquery:busqueda_ajax' %}",
 							type: 'get',
-							complete: function(data) {
-								console.log(data);
+							success: function(data) {
 								var html = "<div class='list-group'>"
-								for(var i=0; i<data.responseJSON.length; i++) {
-									html += "<a href='#' class='list-group-item'></a>"
+								console.log(data);
+								for(var i=0; i<data.length; i++) {
+									html += "<a href='../../recetario/recetas/";
+									html += data[i].pk+"/'";
+									html += " class='list-group-item'>";
+									html += data[i].fields.nombre;
+									html += "</a>";
+									console.log(html);
 								}
-								console.log(html);
 								html += "</div>"
-								$('#test').html(data);
+								$('#resultados').html(html);
 							},
 							error: function () {
 								console.log('ALGO ANDA MAL');

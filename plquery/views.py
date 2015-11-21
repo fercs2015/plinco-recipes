@@ -41,7 +41,7 @@ class BusquedaAjaxView(generic.View):
         ingredientes_ids = request.GET.getlist('ingredientes_ids')
         inner_qs = Ingrediente.objects.exclude(pk__in=ingredientes_ids)
         recetas_list = Receta.objects.exclude(ingredientes__in=inner_qs)
-        data = serializers.serialize('json', recetas_list, fields=('pk','nombre'))
+        data = serializers.serialize('json', recetas_list, fields=('nombre'))
         print data 
         return HttpResponse(data, content_type='application/json')
 
