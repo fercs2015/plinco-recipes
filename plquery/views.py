@@ -34,6 +34,7 @@ class ResultadosView(generic.View):
             return HttpResponse("No hay nada")
 
 from django.core import serializers
+from django.template.loader import render_to_string
 from django.http import HttpResponse, JsonResponse
 class BusquedaAjaxView(generic.View):
 
@@ -41,7 +42,6 @@ class BusquedaAjaxView(generic.View):
         ingredientes_ids = request.GET.getlist('ingredientes_ids')
         inner_qs = Ingrediente.objects.exclude(pk__in=ingredientes_ids)
         recetas_list = Receta.objects.exclude(ingredientes__in=inner_qs)
-        data = serializers.serialize('json', recetas_list, fields=('nombre'))
-        print data 
-        return HttpResponse(data, content_type='application/json')
+        html = render_to_string('plquery/resultados.html', {'recetas_list': recetas_list})
+        return HttpResponse(html)
 

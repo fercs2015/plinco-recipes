@@ -58,40 +58,30 @@
         </div><br>
 {% endblock %}      
 
-			{% block js %}
-			<script type="text/javascript">
-				$(document).ready(function () {
-					$('select').on('change', cambio);
+{% block js %}
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('select').on('change', cambio);
+		
+		function cambio() {
+			var ingredientes = $(this).val();
+			
+			console.log(ingredientes);
+			
+			$.ajax({
+				traditional: true,
+				data: {'ingredientes_ids': ingredientes },
+				url: "{% url 'plquery:busqueda_ajax' %}",
+				type: 'get',
+				success: function(html) {
+					$('#resultados').html(html);
+				},
+				error: function () {
+					console.log('ALGO ANDA MAL');
 					
-					function cambio() {
-						var ingredientes = $(this).val();
-						
-						console.log(ingredientes);
-						$.ajax({
-							traditional: true,
-							data: {'ingredientes_ids': ingredientes },
-							url: "{% url 'plquery:busqueda_ajax' %}",
-							type: 'get',
-							success: function(data) {
-								var html = "<div class='list-group'>"
-								console.log(data);
-								for(var i=0; i<data.length; i++) {
-									html += "<a href='../../recetario/recetas/";
-									html += data[i].pk+"/'";
-									html += " class='list-group-item'>";
-									html += data[i].fields.nombre;
-									html += "</a>";
-									console.log(html);
-								}
-								html += "</div>"
-								$('#resultados').html(html);
-							},
-							error: function () {
-								console.log('ALGO ANDA MAL');
-								
-							}
-						});
-					}
-				});
-			</script>
-			{% endblock %}
+				}
+			});
+		}
+	});
+</script>
+{% endblock %}
