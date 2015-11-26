@@ -3,6 +3,7 @@ from django.views import generic
 from recetario.models import Ingrediente, Categoria, Receta
 from .prolog import se
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 class IndexView(generic.TemplateView):
     template_name = 'plquery/index.html'
@@ -33,14 +34,16 @@ class ResultadosView(generic.View):
         else:
             return HttpResponse("No hay nada")
 
-from django.core import serializers
-from django.template.loader import render_to_string
-from django.http import HttpResponse, JsonResponse
 class BusquedaAjaxView(generic.View):
-
+    #
+    #   Hay que mejorar este codigo, aunque funciona es muy ineficiente.
+    #
     def get(self, request, *args, **kwargs):
         ingredientes_ids = request.GET.getlist('ingredientes_ids')
-        inner_qs = Ingrediente.objects.exclude(pk__in=ingredientes_ids)
+        if 'celiaco' in request.GET and request.GET['celiaco'] == 'optSi':
+            inner_qs = Ingrediente.objects.exclude(pk__in=ingredientes_ids, gluten=False)
+        else:
+            inner_qs = Ingrediente.objects.exclude(pk__in=ingredientes_ids)
         if 'categoria_id' in request.GET and request.GET['categoria_id'] != '0':
             categoria_id = request.GET['categoria_id']
             recetas_list = Receta.objects.exclude(ingredientes__in=inner_qs).filter(categoria__id=categoria_id)

@@ -55,8 +55,6 @@
 						</label>
 					</div>
 			</div>
-			<br>
-				<input type="submit" value="Enviar Datos">
 			</form>
 		</div>
 		<div id="resultados" class="col-xs-6 col-sm-7 col-md-7 col-lg-8">
@@ -71,20 +69,21 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#inputIngr').on('change', actualizar);
-		$(':radio').on('change', actualizar);
+		$(':radio[name=categoria_id]').on('change', actualizar);
+		$(':radio[name=optCel]').on('change', actualizar);
+		
 		
 		function actualizar() {
 			var ingredientes = $('#inputIngr').val();
-			var categoria = $(':radio:checked').val();
-			
-			console.log(ingredientes);
-			console.log(categoria);
-			
+			var categoria = $(':radio[name=categoria_id]:checked').val();
+			var celiaco = $(':radio[name=optCel]:checked').val();
+		
 			$.ajax({
 				traditional: true,
 				data: {
 						'ingredientes_ids': ingredientes, 
-						'categoria_id': categoria 
+						'categoria_id': categoria,
+						'celiaco': celiaco 
 						},
 				url: "{% url 'plquery:busqueda_ajax' %}",
 				type: 'get',
