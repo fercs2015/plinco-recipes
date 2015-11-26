@@ -41,7 +41,11 @@ class BusquedaAjaxView(generic.View):
     def get(self, request, *args, **kwargs):
         ingredientes_ids = request.GET.getlist('ingredientes_ids')
         inner_qs = Ingrediente.objects.exclude(pk__in=ingredientes_ids)
-        recetas_list = Receta.objects.exclude(ingredientes__in=inner_qs)
+        if 'categoria_id' in request.GET and request.GET['categoria_id'] != '0':
+            categoria_id = request.GET['categoria_id']
+            recetas_list = Receta.objects.exclude(ingredientes__in=inner_qs).filter(categoria__id=categoria_id)
+        else:
+            recetas_list = Receta.objects.exclude(ingredientes__in=inner_qs)
         html = render_to_string('plquery/resultados.html', {'recetas_list': recetas_list})
         return HttpResponse(html)
 

@@ -2,6 +2,7 @@ from django.db import models
 
 class Ingrediente(models.Model):
 	nombre = models.CharField(max_length=30)
+	tacc = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.nombre
