@@ -43,7 +43,7 @@
 					{% endfor %}
 			</div>
 			<br>
-            
+
 			<div class="form-group">
 				<label for="inputCel">¿Eres celíaco...?</label>
 					<div class="btn-group" data-toggle="buttons" id="inputCel">
@@ -58,12 +58,12 @@
 			</form>
 		</div>
 		<div id="resultados" class="col-xs-6 col-sm-7 col-md-7 col-lg-8">
-   	
+
 		</div>
 
-   </div>
+	</div>
 </div><br>
-{% endblock %}      
+{% endblock %}
 
 {% block js %}
 <script type="text/javascript">
@@ -71,13 +71,12 @@
 		$('#inputIngr').on('change', actualizar);
 		$(':radio[name=categoria_id]').on('change', actualizar);
 		$(':radio[name=optCel]').on('change', actualizar);
-		
-		
+
 		function actualizar() {
 			var ingredientes = $('#inputIngr').val();
 			var categoria = $(':radio[name=categoria_id]:checked').val();
 			var celiaco = $(':radio[name=optCel]:checked').val();
-		
+
 			$.ajax({
 				traditional: true,
 				data: {
@@ -87,12 +86,11 @@
 						},
 				url: "{% url 'plquery:busqueda_ajax' %}",
 				type: 'get',
-				success: function(html) {
-					$('#resultados').html(html);
+				success: function(resultadoshtml) {
+					$('#resultados').html(resultadoshtml);
 				},
 				error: function () {
 					console.log('ALGO ANDA MAL');
-					
 				}
 			});
 		}

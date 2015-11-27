@@ -42,13 +42,13 @@ class IngredienteDetail(generic.DetailView):
 class IngredienteCreate(generic.CreateView):
     model = Ingrediente 
     template_name = 'recetario/ingrediente_form.html'
-    fields = ('nombre')
+    fields = ('nombre', 'gluten')
     success_url = reverse_lazy('recetario:listaingredientes')
 
 class IngredienteUpdate(generic.UpdateView):
     model = Ingrediente 
     template_name = 'recetario/ingrediente_form.html'
-    fields = ('nombre')
+    fields = ('nombre', 'gluten')
     success_url = reverse_lazy('recetario:listaingredientes')
 
 class IngredienteDelete(generic.DeleteView):
