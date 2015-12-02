@@ -20,7 +20,7 @@
 					<tbody>
 						{% for receta in recetas_list %}
 						<tr>
-							<td>{{ receta.pk }}</td>
+							<td>{{ forloop.counter }}</td>
 							<td>{{ receta.nombre }}</td>
 							<td>{{ receta.categoria }}</td>
 							<td><div class="btn-group">

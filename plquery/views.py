@@ -52,3 +52,35 @@ class BusquedaAjaxView(generic.View):
         html = render_to_string('plquery/resultados.html', {'recetas_list': recetas_list})
         return HttpResponse(html)
 
+class BusquedaAjaxView2(generic.View):
+
+    def get(self, request, *args, **kwargs):
+        ingredientes_ids = request.GET.getlist('ingredientes_ids')
+
+        if 'celiaco' in request.GET and request.GET['celiaco'] == 'optSi':
+            qs_hay = Ingrediente.objects.filter(pk__in=ingredientes_ids, gluten=False)
+            qs_nohay = Ingrediente.objects.exclude(pk__in=ingredientes_ids, gluten=False)
+        else:
+            qs_hay = Ingrediente.objects.filter(pk__in=ingredientes_ids)
+            qs_nohay = Ingrediente.objects.exclude(pk__in=ingredientes_ids)
+
+        qs_recetas = Receta.objects.filter(ingredientes__in=qs_hay).distinct()
+        if 'categoria_id' in request.GET and request.GET['categoria_id'] != '0':
+            categoria_id = request.GET['categoria_id']
+            qs_recetas = qs_recetas.filter(categoria__id=categoria_id)
+
+        qs_recetas_puedo = qs_recetas.exclude(ingredientes__in=qs_nohay)
+        qs_recetas_podria = qs_recetas.filter(ingredientes__in=qs_nohay)
+
+        list_recetas_podria = []
+        for receta_podria in qs_recetas_podria:
+            qs_faltan_ingredientes = qs_nohay & receta_podria.ingredientes.all()
+            if len(qs_faltan_ingredientes) <= 2:
+                list_recetas_podria.append([receta_podria, qs_faltan_ingredientes])
+
+        html = render_to_string('plquery/resultados.html', {'recetas_list': qs_recetas_puedo,
+                                                            'recetas_list_podria': list_recetas_podria})
+        return HttpResponse(html)
+
+class BusquedaPrologView(generic.View):
+    pass

@@ -21,7 +21,7 @@
 					<tbody>
 						{% for ingrediente in ingredientes_list %}
 						<tr>
-							<td>{{ ingrediente.pk }}</td>
+							<td>{{ forloop.counter }}</td>
 							<td>{{ ingrediente.nombre }}</td>
 							<td>{{ ingrediente.gluten|yesno:'Sí,No,Quizás' }}</td>
 							<td><div class="btn-group">
@@ -46,15 +46,20 @@
 		</div>
 	</div>
 </div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+</div>
+
 {% endblock %}
 
 {% block js %}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
-	<script language="javascript" type="text/javascript">
-		$(document).ready(function () {
-			$("#btn-nuevo-ingrediente").click(function () {                    
-				window.open('{% url 'recetario:nuevoingrediente' %}', "PopupWindow", "width=600,height=600,scrollbars=yes,resizable=no");
-			});
-		});
-	</script>
+<script language="javascript" type="text/javascript">
+//	$(document).ready(function () {
+//		$("#btn-nuevo-ingrediente").click(function () {                    
+//			window.open('{% url 'recetario:nuevoingrediente' %}', "PopupWindow", "width=600,height=600,scrollbars=yes,resizable=no");
+//		});
+//	});
+</script>
 {% endblock %}
