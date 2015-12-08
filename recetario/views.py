@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
+from django.http import HttpResponseRedirect
 from django.views import generic
 from django.core.urlresolvers import reverse_lazy
-from .models import Receta, Ingrediente
+from .models import Receta, Ingrediente, DetalleReceta
+from .forms import DetalleRecetaFormSet, RecetaForm
 
 class RecetasList(generic.ListView):
     model = Receta
@@ -15,15 +17,88 @@ class RecetaDetail(generic.DetailView):
 
 class RecetaCreate(generic.CreateView):
     model = Receta
-    template_name = 'recetario/receta_form.html'
-    fields = ('nombre','categoria','ingredientes','preparacion')
+    form_class = RecetaForm
+    template_name = 'recetario/receta_form2.html'
+    #fields = ('nombre','categoria','ingredientes','preparacion')
     success_url = reverse_lazy('recetario:listarecetas')
+
+    def get(self, request, *args, **kwargs):
+        """
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        detallereceta_form = DetalleRecetaFormSet()
+        return self.render_to_response(self.get_context_data(form=form, detallereceta_form=detallereceta_form))
+
+    def post(self, request, *args, **kwargs):
+        """
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class())
+        detallereceta_form = DetalleRecetaFormSet(self.request.POST)
+        if (form.is_valid() and detallereceta_form.is_valid()):
+            return self.form_valid(form, detallereceta_form)
+        else:
+            return self.form_invalid(form, detallereceta_form)
+
+    def form_valid(self, form, detallereceta_form):
+        """
+        """
+        self.object = form.save()
+        detallereceta_form.instance = self.object
+        detallereceta_form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, detallereceta_form):
+        """
+        """
+        return self.render_to_response(
+            self.get_context_data(form=form, detallereceta_form=detallereceta_form))
 
 class RecetaUpdate(generic.UpdateView):
     model = Receta
-    template_name = 'recetario/receta_form.html'
-    fields = ('nombre','categoria','ingredientes','preparacion')
+    form_class = RecetaForm
+    template_name = 'recetario/receta_form2.html'
+    #fields = ('nombre','categoria','ingredientes','preparacion')
     success_url = reverse_lazy('recetario:listarecetas')
+
+    def get(self, request, *args, **kwargs):
+        """
+        """
+        self.object = self.get_object() 
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        detallereceta_form = DetalleRecetaFormSet()
+        return self.render_to_response(self.get_context_data(form=form, detallereceta_form=detallereceta_form))
+
+    def post(self, request, *args, **kwargs):
+        """
+        """
+        self.object = self.get_object() 
+        form_class = self.get_form_class()
+        form = self.get_form(form_class())
+        detallereceta_form = DetalleRecetaFormSet(self.request.POST)
+        if (form.is_valid() and detallereceta_form.is_valid()):
+            return self.form_valid(form, detallereceta_form)
+        else:
+            return self.form_invalid(form, detallereceta_form)
+
+    def form_valid(self, form, detallereceta_form):
+        """
+        """
+        self.object = form.save()
+        detallereceta_form.instance = self.object
+        detallereceta_form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, detallereceta_form):
+        """
+        """
+        return self.render_to_response(
+            self.get_context_data(form=form, detallereceta_form=detallereceta_form))
+
 
 class RecetaDelete(generic.DeleteView):
     model = Receta

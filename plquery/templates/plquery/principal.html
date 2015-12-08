@@ -13,16 +13,6 @@
 					<option value="{{ ingrediente.pk }}">{{ ingrediente }}</option>
 					{% endfor %}
 				</select>
-					<script type="text/javascript">
-						$(document).ready(function() {
-						$("#inputIngr").select2({
-							placeholder: 'Elegir ingredientes',
-							allowClear: true,
-							language: "es",
-							minimumResultsForSearch: 8
-							});
-						});
-					</script>
 			</div>
 			<br>
 			<div class="form-group">
@@ -67,6 +57,15 @@
 
 {% block js %}
 <script type="text/javascript">
+	$(document).ready(function() {
+		$("#inputIngr").select2({
+			placeholder: 'Elegir ingredientes',
+			allowClear: true,
+			language: "es",
+			minimumResultsForSearch: 8
+			});
+	});
+	
 	$(document).ready(function () {
 		$('#inputIngr').on('change', actualizar);
 		$(':radio[name=categoria_id]').on('change', actualizar);

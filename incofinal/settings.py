@@ -31,12 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
+    'easy_select2',
     'recetario',
     'plquery',
 )
@@ -105,3 +108,10 @@ STATICFILE_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 STATIC_URL = '/static/'
+
+SELECT2JS = 'plquery/static/plquery/js/select2/select2.min.js'
+SELECT2CSS = 'plquery/static/plquery/css/select2/select2.min.css'
+SELECT2_USE_BUNDLED_JQUERY = True
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

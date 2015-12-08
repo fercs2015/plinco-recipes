@@ -1,14 +1,53 @@
+{% load staticfiles %}
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 	<meta charset="utf-8">
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Anton' type='text/css'>
+	<link rel="stylesheet" href="{% static 'plquery/css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'plquery/css/main.css' %}">
+	<script src="{% static 'plquery/js/vendor/bootstrap.min.js' %}"></script>
+	<script src="{% static 'plquery/js/vendor/modernizr-2.8.3.min.js' %}"></script>
 	<title>SE-Recetario - TP Final InCo</title>
 </head>
 <body>
-<h1>SE-Recetario - TP Final InCo 2013</h1>
-<h2>Integrantes:</h2>
-	<ul>Colina, Fernando Enrique LU: 5556</ul>
-	<ul>Verrastro, Diego Mariano LU: 5509</ul>
-	<ul>Vidal, Carla LU: 55XX</ul>
-
-<h4><a href="{% url 'plquery:principal' %}">Siguiente</a></h4>
+	<div class="container">
+		<div class="row" align="center">
+			<div class="col-xs-0 col-sm-4 col-md-4 col-lg-4">
+			<img align="center" class="img-rounded img-responsive" src="{% static 'plquery/images/unju.png' %}">
+			<h3>Facultad de Ingeniería</h3>
+			<h4>U.N.Ju.</h4>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" style="background-color:#67A175; color:white; font-family: 'Anton', sans-serif;">
+			<h1>Trabajo Final</h1>
+			<img class="img-rounded img-responsive" src="{% static 'plquery/images/inco.png' %}"><h2>Ingeniería del Conocimiento</h2>
+			</div>
+		</div>
+		<div class="row">
+		<h2 style="font-family: 'Anton';">Integrantes:</h2><br>
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<tbody>
+						<tr>
+							<td>Colina, Fernando Enrique</td>
+							<td>LU: 5556</td>
+						</tr>
+						<tr>
+							<td>Verastro, Diego Mariano</td>
+							<td>LU: 5509</td>
+						</tr>
+						<tr>
+							<td>Vidal, Carla -------</td>
+							<td>LU: 5XXX</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<ul class="pager" style="background-color: #222;">
+				<li><a href="{% url 'plquery:principal' %}">Siguiente</a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
