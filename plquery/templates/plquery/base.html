@@ -12,13 +12,13 @@
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Anton' type='text/css'>
+		<link rel="stylesheet" href="{% static 'plquery/css/font.css' %}" type='text/css'>
 		<link rel="stylesheet" href="{% static 'plquery/css/bootstrap.css' %}">
 		<link rel="stylesheet" href="{% static 'plquery/css/main.css' %}">
-		<link href="{% static 'plquery/css/select2/select2.min.css' %}" rel="stylesheet"/>
+		<link rel="stylesheet" href="{% static 'plquery/css/select2/select2.min.css' %}"/>
 		<script src="{% static 'plquery/js/vendor/jquery-1.11.2.min.js' %}" type="text/javascript"></script>
 		<script src="{% static 'plquery/js/select2/select2.min.js' %}"></script>
-		<script src="{% static 'plquery/js/vendor/modernizr-2.8.3.min.js' %}"></script>
+		<script src="{% static 'plquery/js/vendor/bootstrap.min.js' %}"></script>
 	</head>
 	<body>
         <!--[if lt IE 8]>
@@ -48,7 +48,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a href="#" class="navbar-brand">Chef Inteligente <span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span></a>
+				<a href="#" class="navbar-brand"><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span></a>
 			</div>
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
@@ -79,7 +79,7 @@
 							<ul>
 								<li>Colina, Fernando Enrique - LU: 5556</li>
 								<li>Verrastro, Diego Mariano - LU: 5509</li>
-								<li>Vidal, Carla - LU:5543</li>
+								<li>Vidal, Carla Mariela - LU:5543</li>
 							</ul>
 					</div>
 					<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
@@ -94,8 +94,5 @@
 	</body>
 </html>
 
-<script>window.jQuery || document.write('<script src="{% static 'plquery/js/vendor/jquery-1.11.2.min.js' %}"><\/script>')</script>
-<script src="{% static 'plquery/js/vendor/bootstrap.min.js' %}"></script>
-<script src="{% static 'plquery/js/main.js' %}"></script>
 {% block js %}
 {% endblock %}

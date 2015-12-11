@@ -113,6 +113,10 @@ class IngredientesList(generic.ListView):
 class IngredienteDetail(generic.DetailView):
     model = Ingrediente 
     context_object_name = 'ingrediente'
+    
+#    def get_context_data(self, **kwargs):
+#    	context = super(IngredienteDetail, self).get_context_data(**kwargs)
+#    	context['recetas_list'] = Receta.objects.all()[:5]
 
 class IngredienteCreate(generic.CreateView):
     model = Ingrediente 

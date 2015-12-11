@@ -2,13 +2,15 @@
 
 <html>
 <head>
-		<link rel="stylesheet" href="{% static 'recetario/css/bootstrap.css' %}">
-		<link rel="stylesheet" href="{% static 'recetario/css/stylesheet.css' %}">
-		<script src="{% static 'recetario/js/vendor/jquery-1.11.2.min.js' %}" type="text/javascript"></script>
-		<script src="{% static 'recetario/js/vendor/bootstrap.min.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'recetario/css/bootstrap.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'recetario/css/font.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'recetario/css/stylesheet.css' %}" type="text/css">
+	<script src="{% static 'recetario/js/vendor/jquery-1.11.2.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'recetario/js/vendor/bootstrap.min.js' %}" type="text/javascript"></script>
+	<title>{{ receta.nombre }}</title>
 </head>
 <body>
-	<header>
+	<header id="receta-header">
 		<div class="container">
 			<div class="row">
 				<h1>{{ receta.nombre }} <small>{{ receta.categoria.nombre }}</small></h1>
@@ -18,20 +20,22 @@
 	<section>
 		<div class="container">
 			<div class="col-xs-6 col-sm-7 col-md-8 col-lg-8">
-				<div class="row">
+				<div class="row" align="center">
 					<img class="img img-responsive img-rounded" src="/media/{{ receta.image }}" alt="No hay imagen" width="" height="">
-					<h2>Preparación</h2>
+					<h2 id="titulo-preparacion">Preparación</h2>
 					<p>{{ receta.preparacion }}</p>
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-5 col-md-4 col-lg-4">
-				<div class="row">
-				<div class="list-group">
-					<h2 id="list-ingr" class="list-group-item-heading">Ingredientes</h2>
-					{% for detalle in receta.detallereceta_set.all %}
-						<h4 class="list-group-item-text"><span class="glyphicon glyphicon-plus"></span> {{ detalle.ingrediente }} <small>{{ detalle.cantidad }}</small></h4>
-					{% endfor %}		
+				<div id="ingredientes-header" class="row" align="center">
+					<h2>Ingredientes</h2>
 				</div>
+				<div id="ingredientes-list" class="row">
+					<ul class="list-group">
+					{% for detalle in receta.detallereceta_set.all %}
+						<li class="list-group-item"><span class="glyphicon glyphicon-plus"></span> {{ detalle.ingrediente }} <small>{{ detalle.cantidad }}</small></li>
+					{% endfor %}
+					</ul>
 				</div>
 			</div>
 		</div>

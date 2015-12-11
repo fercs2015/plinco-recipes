@@ -4,12 +4,12 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Anton' type='text/css'>
+	<link rel="stylesheet" href="{% static 'plquery/css/font.css' %}" type='text/css'>
 	<link rel="stylesheet" href="{% static 'plquery/css/bootstrap.css' %}">
 	<link rel="stylesheet" href="{% static 'plquery/css/main.css' %}">
+	<script src="{% static 'plquery/js/vendor/jquery-1.11.2.min.js' %}"></script>
 	<script src="{% static 'plquery/js/vendor/bootstrap.min.js' %}"></script>
-	<script src="{% static 'plquery/js/vendor/modernizr-2.8.3.min.js' %}"></script>
-	<title>SE-Recetario - TP Final InCo</title>
+	<title>InCo - Chef Inteligente</title>
 </head>
 <body>
 	<div class="container">
@@ -19,9 +19,16 @@
 			<h3>Facultad de Ingeniería</h3>
 			<h4>U.N.Ju.</h4>
 			</div>
-			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" style="background-color:#67A175; color:white; font-family: 'Anton', sans-serif;">
-			<h1>Trabajo Final</h1>
-			<img class="img-rounded img-responsive" src="{% static 'plquery/images/inco.png' %}"><h2>Ingeniería del Conocimiento</h2>
+			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+				<div class="row" style="background-color:#67A175; color:white; font-family: 'Anton', sans-serif; margin-top: 20px; border-radius: 15px;">
+				<h1>Trabajo Final</h1>
+				<img class="img-rounded img-responsive" src="{% static 'plquery/images/inco.png' %}">
+				<h2>Ingeniería del Conocimiento</h2>
+				</div>
+			<br>
+				<div class="row" style="background-color:#EEE272; color:white; font-family: 'Anton', sans-serif; border-radius: 15px;">
+				<h1><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Chef Inteligente</h1>
+				</div>
 			</div>
 		</div>
 		<div class="row">
@@ -44,7 +51,7 @@
 					</tbody>
 				</table>
 			</div>
-			<ul class="pager" style="background-color: #222;">
+			<ul class="pager" style="background-color: #222; border-radius: 15px;">
 				<li><a href="{% url 'plquery:principal' %}">Siguiente</a></li>
 			</ul>
 		</div>

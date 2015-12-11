@@ -4,9 +4,35 @@ header {
 	font-family: 'Anton', sans-serif;
 }
 
-#list-ingr {
+#ingredientes-header {
+	margin: 10px;
 	background-color: #EEE272;
+	border-radius: 15px;
+	font-family: 'Anton', sans-serif;
 }
-.list-group {
+
+#ingredientes-list {
+	margin: 10px;
 	background-color: #FFF7AE;
+	border-radius: 15px;
+	font-family: 'Anton', sans-serif;
+}
+
+#ingredientes-list > ul {
+	margin-top: 10px;
+}
+
+#ingredientes-list > ul > li {
+	background-color: transparent;
+	border: None;
+}
+
+#titulo-preparacion {
+	font-family: 'Anton', sans-serif;
+}
+
+img {
+	margin: 10px;
+	border: 10px solid grey;
+	border-width: medium;
 }
