@@ -4,41 +4,40 @@ import os
 from recetario.models import Ingrediente, Categoria, Receta, DetalleReceta
 
 class Singleton(object):
-    _instance = None
+	_instance = None
 
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = object.__new__(cls, *args, **kwargs)
-
-        return cls._instance
+	def __new__(cls, *args, **kwargs):
+		if not cls._instance:
+			cls._instance = object.__new__(cls, *args, **kwargs)
+		return cls._instance
 
 class se(Singleton):
-    band = True
+	band = True
 
-    def __init__(self):
-        if self.band:
-            self.prolog = Prolog()
-            if not os.path.isfile('recetas.pl'):
-                print "Generando Recetas..."
-                self.cargarRecetas()
-            print "Cargando Recetas..."
-            self.prolog.consult('recetas.pl')
-            print "Cargando Querys..."
-            self.prolog.consult('querys.pl')
-            self.band = False
-        else:
-            print "Ya se cargo"
+	def __init__(self):
+		if self.band:
+			self.prolog = Prolog()
+			if not os.path.isfile('prolog/kb_recetas.pl'):
+				print "Generando Recetas..."
+				self.cargarRecetas()
+			print "Cargando Recetas..."
+			self.prolog.consult('prolog/kb_recetas.pl')
+			print "Cargando Querys..."
+			self.prolog.consult('prolog/motorinferencia.pl')
+			self.band = False
+		else:
+			print "Ya se cargo"
 
 	def cargarRecetas(self):
-		recetario = open("recetas.pl", "w")
+		recetario = open("prolog/kb_recetas.pl", "w")
 		header = """%====================\n% BASE DE HECHOS\n%====================\n"""
 		recetario.write(header)
 
 		# Cargar ingredientes en la Base de Conocimiento
 		headerIng = """\n%--------------------\n% Ingredientes\n%--------------------\n"""
 		recetario.write(headerIng)
-		listaIngredientes = Ingrediente.objects.values_list('nombre',flat=True)
-		bufferIng = ["ingrediente('"+x.encode('utf-8')+"').\n" for x in listaIngredientes]
+		listaIngredientes = Ingrediente.objects.values_list('nombre','gluten')
+		bufferIng = ["ingrediente(nombre('"+x[0].encode('utf-8')+"'), gluten("+str(x[1]).lower()+")).\n" for x in listaIngredientes]
 		recetario.writelines(bufferIng)
 		
 
@@ -75,4 +74,7 @@ class se(Singleton):
 		return list(self.prolog.query("hay(X)"))
 
 	def quePuedoHacer(self):
-		return list(self.prolog.query("quePuedoHacer(Receta,Cat)"))
+		return list(self.prolog.query("quePuedoHacer(Receta,Categoria)"))
+
+	def quePodriaHacer(self):
+		return list(self.prolog.query("quePodriaHacer(Receta,Categoria,Falta,S)"))

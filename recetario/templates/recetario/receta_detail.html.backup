@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+<!-- Modal Form-->
+<div class="modal-dialog">
+	<!-- Modal content-->
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Modal Header</h4>
+		</div>
+		<div class="modal-body">
+			<h1>{{ receta.nombre }} <small>{{ receta.categoria.nombre }}</small></h1>
+			<img class="img-responsive img-circle" src="/media/{{ receta.image }}" 
+			alt="Sin imagen" width="230" height="172">
+			<h3>Ingredientes <small>cantidades</small></h3>
+				<ul>
+				{% for detalle in receta.detallereceta_set.all %}
+					<li>{{ detalle.ingrediente }}, <small>{{ detalle.cantidad }}</small></li>
+				{% endfor %}
+				</ul>
+			<h3>Preparación</h3>
+			<p>{{ receta.preparacion }}</p>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	</div>
+</div>

@@ -21,14 +21,18 @@
 		<div class="container">
 			<div class="col-xs-6 col-sm-7 col-md-8 col-lg-8">
 				<div class="row" align="center">
-					<img class="img img-responsive img-rounded" src="/media/{{ receta.image }}" alt="No hay imagen" width="" height="">
-					<h2 id="titulo-preparacion">Preparación</h2>
+					<img class="img img-responsive img-rounded" src="/media/{{ receta.image }}" alt="No hay imagen" width="" height="auto">
+				</div>
+				<div id="preparacion-header" class="row">
+					<h2 class="text-center">Preparación</h2>
+				</div>
+				<div id="preparacion-body" class="row">
 					<p>{{ receta.preparacion }}</p>
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-5 col-md-4 col-lg-4">
-				<div id="ingredientes-header" class="row" align="center">
-					<h2>Ingredientes</h2>
+				<div id="ingredientes-header" class="row">
+					<h2 class="text-center">Ingredientes</h2>
 				</div>
 				<div id="ingredientes-list" class="row">
 					<ul class="list-group">

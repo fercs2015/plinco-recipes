@@ -27,7 +27,21 @@ header {
 	border: None;
 }
 
-#titulo-preparacion {
+#preparacion-header {
+	font-family: 'Anton', sans-serif;
+	background-color: #BFBFBF;
+	border-radius: 15px;
+	margin: 10px;
+}
+
+#preparacion-body {
+	background-color: #E5E5E5;
+	border-radius: 15px;
+	margin: 10px;
+	padding: 15px;
+}
+
+h3 {
 	font-family: 'Anton', sans-serif;
 }
 

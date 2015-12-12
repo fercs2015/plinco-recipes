@@ -1,0 +1,31 @@
+% REGLAS
+%---------------------
+% Lista toda las recetas
+listar_recetas(X) :- receta(nombre(X),_,_,_,_).
+
+% Lista las recetas por categoría
+listar_recetas(X,Cat) :- receta(nombre(X),categoria(Cat),_,_,_).
+
+% Lista ingredientes con gluten 
+listar_ingredientes_gluten(I) :- ingrediente(I),derivaDe(I,Tacc),tacc(Tacc).
+
+% Lista ingredientes sin gluten
+listar_ingredientes_singluten(I) :- ingrediente(I),not(derivaDe(I,_)).
+
+% Lista todas las recetas sin gluten
+singluten([]).
+singluten([X|Xs]) :- not(derivaDe(X,_)),singluten(Xs).
+listar_recetas_singluten(X) :- receta(nombre(X),_,ingredientes(Y),_,_),singluten(Y).
+
+% Que recetas puedo hacer con los ingredientes que tengo por categoría
+quePuedoHacer(X,Cat) :- receta(nombre(X),categoria(Cat),ingredientes(Y),_,_),hay(Tengo),subset(Y,Tengo).
+quePuedoHacer2(X,Cat) :- receta(nombre(X),categoria(Cat),ingredientes(Y),_,_),hay(Y).
+
+% Que recetas puedo hacer sin gluten
+quePuedoHacer_singluten(X,Cat) :- receta(nombre(X),categoria(Cat),ingredientes(Y),_,_),hay(Tengo),singluten(Y),subset(Y,Tengo).
+
+% Que podría hacer
+quePodriaHacer(X,Cat,Falta,S) :- hay(Tengo),receta(nombre(X),categoria(Cat),ingredientes(Y),_,_),subtract(Y,Tengo,S),length(S,Falta).
+
+% Que podría hacer sin gluten
+quePodriaHacer_singluten(X,Cat,Falta,S) :- hay(Tengo),receta(nombre(X),categoria(Cat),ingredientes(Y),_,_),singluten(Y),subtract(Y,Tengo,S),length(S,Falta).
