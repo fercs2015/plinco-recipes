@@ -20,6 +20,15 @@ listar_ingredientes_congluten(Nombre) :-
 listar_recetas(Nombre,Categoria,Ingredientes,Cantidades,Preparacion) :- 
 	receta(nombre(Nombre),categoria(Categoria),ingredientes(Ingredientes),cantidades(Cantidades),preparacion(Preparacion)).
 
+listar_recetas_w(L) :-
+	listar_recetas(Nombre,Categoria,Ingredientes,Cantidades,Preparacion),
+	write(Nombre),nl,
+	write(Categoria),nl,nl,
+	write('Ingredientes'),nl,
+	write(Ingredientes),nl,nl,
+	write(Cantidades),nl,nl,
+	format(Preparacion),nl,nl.
+
 % Lista todas las recetas sin gluten
 singluten([]).
 singluten([X|Xs]) :- ingrediente(nombre(X),gluten(false)),singluten(Xs).
@@ -30,19 +39,19 @@ listar_recetas_singluten(Nombre,Categoria,Ingredientes,Cantidades,Preparacion) :
 %---------------------
 % Complejas
 %---------------------
-% Que recetas puedo hacer con los ingredientes que tengo por categoría
+% Que recetas puedo hacer con los ingredientes que tengo
 quePuedoHacer(Receta,Categoria,Ingredientes,Cantidades,Preparacion) :-
 	listar_recetas(Receta,Categoria,Ingredientes,Cantidades,Preparacion),
 	hay(Tengo),
 	subset(Ingredientes,Tengo).
 
-% Que recetas puedo hacer sin gluten
+% Que recetas puedo hacer sin gluten con los ingredientes que tengo
 quePuedoHacer_singluten(Receta,Categoria,Ingredientes,Cantidades,Preparacion) :-
 	listar_recetas_singluten(Receta,Categoria,Ingredientes,Cantidades,Preparacion),
 	hay(Tengo),
 	subset(Ingredientes,Tengo).
 
-% Que podría hacer
+% Que recetas podría hacer con los ingredientes que tengo + otros ingredientes
 quePodriaHacer(Receta,Categoria,Ingredientes,Cantidades,Preparacion,Cuanto,QueFalta) :-
 	listar_recetas(Receta,Categoria,Ingredientes,Cantidades,Preparacion),
 	hay(Tengo),
@@ -51,7 +60,7 @@ quePodriaHacer(Receta,Categoria,Ingredientes,Cantidades,Preparacion,Cuanto,QueFa
 	length(QueFalta,Cuanto),
 	Cuanto \== 0.
 
-% Que podría hacer sin gluten
+% Que podría hacer sin gluten con los ingredientes que tengo + otros ingredientes
 quePodriaHacer_singluten(Receta,Categoria,Ingredientes,Cantidades,Preparacion,Cuanto,QueFalta) :-
 	listar_recetas(Receta,Categoria,Ingredientes,Cantidades,Preparacion),
 	hay(Tengo),
