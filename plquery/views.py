@@ -62,7 +62,7 @@ class BusquedaAjaxView(generic.View):
         list_recetas_podria = []
         for receta_podria in qs_recetas_podria:
             qs_faltan_ingredientes = qs_nohay & receta_podria.ingredientes.all()
-            if len(qs_faltan_ingredientes) <= 2:
+            if len(qs_faltan_ingredientes) <= 3:
                 list_recetas_podria.append([receta_podria, qs_faltan_ingredientes])
 
         # Se ordena la lista por longitud de los ingredientes que faltan.
