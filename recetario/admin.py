@@ -25,8 +25,17 @@ class RecetaAdmin(admin.ModelAdmin):
 	def response_delete(self,request,obj,post_url_continue=None):
 		return HttpResponseRedirect(reverse('recetario:listarecetas'))	
 
+class IngredienteAdmin(admin.ModelAdmin):
+	def response_add(self,request,obj,post_url_continue=None):
+		return HttpResponseRedirect(reverse('recetario:listaingredientes'))
+		
+	def response_change(self,request,obj,post_url_continue=None):
+		return HttpResponseRedirect(reverse('recetario:listaingredientes'))
+
+	def response_delete(self,request,obj,post_url_continue=None):
+		return HttpResponseRedirect(reverse('recetario:listaingredientes'))	
 
 # Register your models here.
-admin.site.register(Ingrediente)
+admin.site.register(Ingrediente, IngredienteAdmin)
 admin.site.register(Categoria)
 admin.site.register(Receta, RecetaAdmin)

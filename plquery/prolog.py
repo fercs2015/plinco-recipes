@@ -57,7 +57,7 @@ class se(Singleton):
 			recingr = Receta.objects.get(nombre=receta[0]).ingredientes.values_list('nombre',flat=True)
 			reccat = Categoria.objects.values_list('nombre',flat=True).get(id=receta[1])
 			reccant = DetalleReceta.objects.filter(receta__nombre=receta[0]).values_list('cantidad', flat=True)
-			recprep = Receta.objects.get(nombre=receta[0]).preparacion
+			recprep = Receta.objects.get(nombre=receta[0]).preparacion.encode('unicode-escape')
 			bufferRec = "receta(\tnombre('"+receta[0]+"'),\n\tcategoria('"+str(reccat)+"'),\n\tingredientes(['"+"', '".join(recingr)+"']),\n\tcantidades(['"+"', '".join(reccant)+"']),\n\tpreparacion('"+recprep+"')\n\t).\n"
 			recetario.write(bufferRec.encode('utf-8'))
 		

@@ -17,23 +17,28 @@ listar_ingredientes_congluten(Nombre) :-
 	listar_ingredientes(Nombre,true).
 
 % Lista toda las recetas
-listar_recetas(Nombre,Categoria,Ingredientes,Cantidades,Preparacion) :- 
-	receta(nombre(Nombre),categoria(Categoria),ingredientes(Ingredientes),cantidades(Cantidades),preparacion(Preparacion)).
+%listar_recetas(Nombre,Categoria,Ingredientes,Cantidades,Preparacion) :- 
+%	receta(nombre(Nombre),categoria(Categoria),ingredientes(Ingredientes),cantidades(Cantidades),preparacion(Preparacion)).
 
-listar_recetas_w(L) :-
-	listar_recetas(Nombre,Categoria,Ingredientes,Cantidades,Preparacion),
-	write(Nombre),nl,
-	write(Categoria),nl,nl,
+listar_recetas(Nombre,Categoria,Ingredientes,Cantidades,Preparacion) :-
+	receta(nombre(Nombre),categoria(Categoria),ingredientes(Ingredientes),cantidades(Cantidades),preparacion(Preparacion)),
+	write('========================================================================================================================'),nl,
+	write(Nombre),write(' | '),write(Categoria),nl,
+	write('------------------------------------------------------------------------------------------------------------------------'),nl,nl,nl,
 	write('Ingredientes'),nl,
+	write('------------------------------------------------------------------------------------------------------------------------'),nl,nl,
 	write(Ingredientes),nl,nl,
-	write(Cantidades),nl,nl,
-	format(Preparacion),nl,nl.
+	write(Cantidades),nl,nl,nl,
+	write('Preparación'),nl,
+	write('------------------------------------------------------------------------------------------------------------------------'),nl,nl,
+	format(Preparacion),nl,
+	write('========================================================================================================================'),nl,nl.
 
 % Lista todas las recetas sin gluten
 singluten([]).
 singluten([X|Xs]) :- ingrediente(nombre(X),gluten(false)),singluten(Xs).
 listar_recetas_singluten(Nombre,Categoria,Ingredientes,Cantidades,Preparacion) :-
-	receta(nombre(Nombre),categoria(Categoria),ingredientes(Ingredientes),cantidades(Cantidades),preparacion(Preparacion)),
+	listar_recetas(Nombre,Categoria,Ingredientes,Cantidades,Preparacion),
 	singluten(Ingredientes).
 
 %---------------------
